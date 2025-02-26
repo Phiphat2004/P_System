@@ -28,7 +28,7 @@
                         </li>
                         <li class="nav-item">
                             <button onclick="checkReset()" id="RegisterButton" type="button"
-                                    class="btn btn-group btn-light m-2 rounded-5">Registersákdjfhasdlfjksadlksdlkjhfwaqs</button>
+                                    class="btn btn-group btn-light m-2 rounded-5">Register</button>
                         </li>
                     </ul>
                 </div>
