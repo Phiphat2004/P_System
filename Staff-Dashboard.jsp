@@ -1,31 +1,27 @@
-<%-- Document : showOrder Created on : Oct 18, 2023, 3:13:07 PM Author : admin
---%> <%@page import="java.text.DecimalFormat"%>
+<%-- Document : showOrder Created on : Oct 18, 2023, 3:13:07 PM Author : admin --%>
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="DAOs.OrderDAO"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> <%@ taglib
-prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> <%@page
-contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="style.css" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css"
-    />
-    <style>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Dashboard</title>
+        <link rel="stylesheet" href="style.css" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        />
+        <style>
             .main-body {
                 display: flex;
             }
@@ -195,29 +191,15 @@ contentType="text/html" pageEncoding="UTF-8"%>
                 display: none !important; /* Fallback in case toolbar option doesn't work */
             }
         </style>
-  </head>
-  <body>
-      <%
-            Cookie[] cookies = request.getCookies();
+    </head>
+    <body>
+        <%
             if (session.getAttribute("acc") == null) {
                 boolean flag = false;
+                Cookie[] cookies = request.getCookies();
                 if (cookies != null) {
                     for (Cookie cookie : cookies) {
-                        if (cookie.getName().equals("admin") && !cookie.getValue().equals("")) {
-                            session.setAttribute("id", cookie.getValue());
-                            flag = true;
-                            break;
-                        }
-                    }
-                }
-                if (!flag) {
-                    response.sendRedirect("/P-System/Login");
-                }
-            } else {
-                boolean flag = false;
-                if (cookies != null) {
-                    for (Cookie cookie : cookies) {
-                        if (cookie.getName().equals("admin") && !cookie.getValue().equals("")) {
+                        if (cookie.getName().equals("staff") && !cookie.getValue().equals("")) {
                             session.setAttribute("id", cookie.getValue());
                             flag = true;
                             break;
@@ -229,7 +211,7 @@ contentType="text/html" pageEncoding="UTF-8"%>
                 }
             }
         %>
-         <%
+        <%
             OrderDAO ord = new OrderDAO();
             DecimalFormat decimalFormat = new DecimalFormat("#,### vnđ");
             String formattedDailyRevenue = "N/A";
@@ -254,34 +236,20 @@ contentType="text/html" pageEncoding="UTF-8"%>
                 out.print("Error fetching yearly revenue: " + e.getMessage());
             }
         %>
-    <a href="" class="navbar ps-5"> P-System - ADMIN </a>
-    <div class="main-body">
-      <nav>
+        <a href="" class="navbar ps-5"> P-System - STAFF </a>
+        <div class="main-body">
+            <nav>
                 <ul class="listcontent">
-                    <li>
-                        <a href="/P-System/AdminManager/Dashboard"><i class="fa fa-home me-3"></i> 
-                            <span>Dashboard</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/P-System/AdminManager/usermanagement"><i class="fa fa-user me-3"></i>
-                            <span>Customer</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/P-System/AdminManager/staffmanagement"
-                           ><i class="fa fa-users me-3"></i>
-                            <span>Staff</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/P-System/Logout"><i class="fa fa-sign-out me-3"></i>
-                            <span>Logout</span>
-                        </a>
-                    </li>
+                    <li><a href="/P-System/Manager/Dashboard"><i class="fa fa-home me-3"></i><span>Dashboard</span></a></li>
+                    <li><a href="/P-System/Manager/manageProduct?type=view"><i class="fa fa-product-hunt me-3"></i><span>Product</span></a></li>
+                    <li><a href="/P-System/Manager/importmanagement"><i class="fa fa-download me-3"></i><span>Import</span></a></li>
+                    <li><a href="/P-System/Manager/ordermanagement"><i class="fa fa-file me-3"></i><span>Orders</span></a></li>
+                    <li><a href="/P-System/Manager/monthRevenue"><i class="fa fa-calendar me-3"></i><span>Month revenue</span></a></li>
+                    <li><a href="/P-System/Manager/customermanagement"><i class="fa fa-user me-3"></i><span>Customer</span></a></li>
+                    <li><a href="/P-System/Logout"><i class="fa fa-sign-out me-3"></i><span>Logout</span></a></li>
                 </ul>
             </nav>
-      <div class="allbody">
+            <div class="allbody">
                 <div class="content container">
                     <h2>Payment amount</h2>
                     <div class="paymentamount pt-4">
